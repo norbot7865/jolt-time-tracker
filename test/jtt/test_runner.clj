@@ -7,7 +7,8 @@
             jtt.port.contracts-test
             jtt.domain.core-test
             jtt.application.core-test
-            jtt.frontend.shared.coordinator-test))
+            jtt.frontend.shared.coordinator-test
+            jtt.android.reducer-test))
 
 (defn -main [& _]
   (let [{:keys [fail error] :as summary}
@@ -18,7 +19,8 @@
                         'jtt.port.contracts-test
                         'jtt.domain.core-test
                         'jtt.application.core-test
-                        'jtt.frontend.shared.coordinator-test)]
+                        'jtt.frontend.shared.coordinator-test
+                        'jtt.android.reducer-test)]
     (when (pos? (+ fail error))
       (throw (ex-info "Jolt tests failed" summary)))
     (println "jtt tests passed")))

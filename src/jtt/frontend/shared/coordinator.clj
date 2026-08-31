@@ -23,8 +23,3 @@
     (map? value) (into {} (map (fn [[k v]] [k (if (#{:token :api-key :authorization} k) "[REDACTED]" (redact v))]) value))
     (vector? value) (mapv redact value)
     :else value))
-
-(defn apply-response [state generation result]
-  (if (:error result)
-    (reject-response state generation (:error result))
-    (accept-response state generation (redact result))))
