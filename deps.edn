@@ -10,7 +10,9 @@
                                   :git/sha "790b040a80dcca6cf853475e2a8feb802fb1b14b"}
         org.clojure/data.json {:mvn/version "2.5.0"}
         jolt-lang/glimmer-tui {:git/url "https://github.com/jolt-lang/glimmer-tui.git"
-                               :git/sha "9280e473bd58c7d442967b09342bf47a1c4a1cd0"}}
+                               :git/sha "9280e473bd58c7d442967b09342bf47a1c4a1cd0"}
+        jolt-lang/glimmer-gtk {:git/url "https://github.com/jolt-lang/glimmer-gtk.git"
+                               :git/sha "ce79d45698d36ccf496397bb85974e3cce6abfd8"}}
  :aliases {:test {:extra-paths ["test" "test-resources"]
                   :main-opts ["-m" "jtt.test-runner"]}}
  :jtt/toolchain {:minimum-version "0.7.28"

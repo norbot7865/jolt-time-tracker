@@ -5,9 +5,10 @@ JOLT_ENV := JOLT_NO_USER_DEPS=1
 SMOKE_BINARY := target/jtt-toolchain-smoke
 JTT_BINARY := target/jtt
 TUI_BINARY := target/jtt-tui
+GTK_BINARY := target/jtt-gtk
 
 .PHONY: help verify-bootstrap check-toolchain test repl nrepl-smoke build run-smoke clean \
-	cli tui gtk android build-tui
+	cli tui gtk android build-tui build-gtk
 
 help:
 	@printf '%s\n' \
@@ -58,12 +59,19 @@ build-tui:
 tui: build-tui
 	@printf '%s\n' 'built target/jtt-tui; launch it from a usable terminal'
 
+build-gtk:
+	@mkdir -p target
+	@$(JOLT_ENV) $(JOLT) build -m jtt.frontend.gtk.core -o $(GTK_BINARY)
+
+gtk: build-gtk
+	@printf '%s\n' 'built target/jtt-gtk; launch it on a GTK4 display server'
+
 run-smoke: build
 	@./$(SMOKE_BINARY)
 
 clean:
 	@rm -rf target .nrepl-port
 
-gtk android:
+android:
 	@printf '%s gate is not proven yet; complete its dedicated Phase 0 bead first.\n' '$@' >&2
 	@exit 2
