@@ -8,7 +8,7 @@ Its reproducible verifier is:
 
 ```sh
 cd ../jolt/jolt-android
-nix develop -c ./scripts/verify
+JOLT_SOURCE=../jolt nix develop -c ./scripts/verify
 ```
 
 The PoC reports an `arm64-v8a` PIC shared library and debug APK, exported
