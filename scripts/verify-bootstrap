@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+# Verify only the bootstrap contract. Later phases add runtime/build checks.
+set -euo pipefail
+
+root=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)
+cd "$root"
+
+required=(
+  AGENTS.md README.md PLAN.md Makefile .gitignore
+  src/README.md
+  docs/ARCHITECTURE.md docs/DEVELOPMENT.md docs/JOLT-GOTCHAS.md
+  docs/PROVIDER-CONTRACTS.md docs/TESTING.md docs/adr/README.md docs/changes/README.md
+  android/README.md
+)
+
+for path in "${required[@]}"; do
+  [[ -f "$path" ]] || { printf 'missing required bootstrap file: %s\n' "$path" >&2; exit 1; }
+done
+
+while IFS= read -r -d '' directory; do
+  [[ -f "$directory/README.md" ]] || {
+    printf 'missing subtree README: %s/README.md\n' "$directory" >&2
+    exit 1
+  }
+done < <(find src/jtt -type d -print0)
+
+git diff --check
+printf 'bootstrap verification passed\n'

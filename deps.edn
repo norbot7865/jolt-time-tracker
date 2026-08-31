@@ -1,0 +1,2 @@
+;; Bootstrap classpath only. The Phase 0 toolchain bead pins Jolt and all dependencies.
+{:paths ["src" "test" "test-resources"]}

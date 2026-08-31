@@ -1,0 +1,30 @@
+# Jolt/Clojure caches and build outputs
+.cpcache/
+.clj-kondo/.cache/
+.lsp/
+.jolt/
+.target/
+target/
+
+# Native, Android, and IDE output
+android/.gradle/
+android/.idea/
+android/build/
+android/**/build/
+*.apk
+*.aab
+*.so
+
+# Local configuration, credentials, logs, and screenshots
+.env
+.env.*
+!.env.example
+config.local.*
+*.log
+screenshots/
+artifacts/
+
+# Editor and operating-system files
+.idea/
+.vscode/
+.DS_Store
