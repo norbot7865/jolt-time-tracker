@@ -34,7 +34,7 @@ JOLT_NO_USER_DEPS=1 jolt -e '(str "jtt-toolchain:" (+ 40 2))'
 => "jtt-toolchain:42"
 
 make test
-=> 1 test, 1 assertion, 0 failures, 0 errors
+=> portable suite passes (consult the test runner output for its current count)
 
 make nrepl-smoke
 => nREPL smoke passed: jtt-toolchain:42
@@ -46,7 +46,8 @@ make run-smoke
 `nrepl-smoke` starts a temporary loopback server, sends a bencoded `eval` that
 loads `jtt.bootstrap.smoke`, checks the response and shuts it down. It is an
 automated counterpart to the captured live nREPL experiment; it does not expose
-a listener outside loopback.
+a listener outside loopback. `make run-smoke` builds the same fixed-output
+smoke namespace; it does not build or run the `jtt` time-tracker CLI.
 
 ## Required development loop
 

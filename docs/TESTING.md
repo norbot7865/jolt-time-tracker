@@ -1,9 +1,14 @@
 # Testing and evidence
 
-## Bootstrap gate
+## Current observed gates
 
-`make verify-bootstrap` checks only the documentation/layout contract and
-whitespace-safe diff. It is not a substitute for Jolt tests.
+`make verify-bootstrap` checks the documentation/layout contract and
+whitespace-safe diff. `make test`, `make nrepl-smoke`, and `make run-smoke`
+exercise portable helpers, the loopback nREPL smoke, and the fixed-output
+smoke namespace respectively. None proves a runnable time-tracker binary or a
+native desktop/mobile host.
+
+`make verify-bootstrap` is not a substitute for Jolt tests.
 
 ## Planned evidence tiers
 

@@ -6,9 +6,16 @@ hosts.
 
 ## Status
 
-**Phase 0 toolchain proven.** The repository contains a pinned Jolt smoke
-namespace, portable test, live nREPL smoke, and deterministic standalone binary
-proof. Providers and user-facing commands remain unimplemented. The executable
+**Partial implementation; no runnable product host yet.** The pinned Jolt
+toolchain, portable tests, nREPL smoke, and a deterministic standalone *smoke*
+binary are proven. The repository also has partial domain/application helpers,
+provider request planners, a config boundary, frontend view/lifecycle helpers,
+and portable Android reducer/effect helpers. None is a complete executable
+provider adapter, CLI, ncurses TUI, GTK4 application, or Android host.
+
+`target/jtt-toolchain-smoke` prints a fixed toolchain value; it is **not** the
+`jtt` application binary. `make cli`, `make tui`, `make gtk`, and `make android`
+intentionally fail until their production hosts are implemented. The executable
 acceptance criteria and phase gates live in [PLAN.md](PLAN.md); work state lives
 in the parent repository's Beads tracker. Do not treat planned architecture as
 observed behavior.
@@ -35,6 +42,9 @@ make test
 make nrepl-smoke
 make run-smoke
 ```
+
+The smoke executable depends on the pinned Nix runtime environment. It is not a
+portable distribution artifact and cannot be used to track time.
 
 `make` runs Jolt with `JOLT_NO_USER_DEPS=1`, so user-level dependency files do
 not affect this proof. CLI, TUI, GTK, and Android commands remain gated by their

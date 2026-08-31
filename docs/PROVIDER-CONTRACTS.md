@@ -2,10 +2,12 @@
 
 ## Status
 
-Provider behavior is **unimplemented**. The Go implementation in
-[`../../gtt/`](../../gtt/) is the initial behavior oracle; external API claims
-must be verified with synthetic local contract servers before live credentials
-are ever used.
+Provider execution is **unimplemented**. The Go implementation in
+[`../../gtt/`](../../gtt/) is the initial behavior oracle. The source currently
+contains Clockify and Kimai request-planning helpers with synthetic unit tests,
+but neither adapter executes HTTP, normalizes provider responses, or implements
+the full provider capability surface. External API claims must be verified with
+synthetic local contract servers before live credentials are ever used.
 
 ## Intended boundary
 
