@@ -31,9 +31,12 @@
          cfg (config/apply-overrides
               (merge settings (config/load-config paths {}))
               (or env (System/getenv)))
-         provider (:provider cfg)
+         provider (or (:provider cfg) :clockify)
+         cfg (assoc cfg :provider provider)
          adapters {:clockify (clockify/make-adapter cfg (or executor http/execute))
                    :kimai ((var-get (ns-resolve 'jtt.adapter.kimai.core '_make-adapter)) cfg (or executor http/execute))}]
      (if-let [adapter (get adapters provider)]
        (application/configure (_capabilities adapter) cfg)
-       (registry/select provider adapters)))))
+       (try
+         (registry/select provider adapters)
+         (catch Exception _ (application/error-result :configure :unsupported-provider)))))))

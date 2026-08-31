@@ -3,6 +3,7 @@
 JOLT ?= ./scripts/jolt
 JOLT_ENV := JOLT_NO_USER_DEPS=1
 SMOKE_BINARY := target/jtt-toolchain-smoke
+JTT_BINARY := target/jtt
 
 .PHONY: help verify-bootstrap check-toolchain test repl nrepl-smoke build run-smoke clean \
 	cli tui gtk android
@@ -18,9 +19,10 @@ help:
 	  '  make test              run portable Jolt tests with user deps disabled' \
 	  '  make repl              start a clean line REPL' \
 	  '  make nrepl-smoke       prove a live nREPL eval request' \
-	  '  make build             build the deterministic standalone smoke binary' \
-	  '  make run-smoke         run the built smoke binary' \
-	  '  make cli|tui|gtk|android  fail until their Phase 0 gates are complete'
+	  '  make build             build the standalone jtt CLI binary' \
+	  '  make run-smoke         run the deterministic toolchain smoke binary' \
+	  '  make cli               build and run the jtt CLI help command' \
+	  '  make tui|gtk|android   fail until their dedicated host gates are complete'
 
 verify-bootstrap:
 	@./scripts/verify-bootstrap
@@ -42,7 +44,10 @@ nrepl-smoke:
 
 build:
 	@mkdir -p target
-	@$(JOLT_ENV) $(JOLT) build -m jtt.bootstrap.smoke -o $(SMOKE_BINARY)
+	@$(JOLT_ENV) $(JOLT) build -m jtt.frontend.cli.core -o $(JTT_BINARY)
+
+cli: build
+	@./$(JTT_BINARY) help --json
 
 run-smoke: build
 	@./$(SMOKE_BINARY)
@@ -50,6 +55,6 @@ run-smoke: build
 clean:
 	@rm -rf target .nrepl-port
 
-cli tui gtk android:
+tui gtk android:
 	@printf '%s gate is not proven yet; complete its dedicated Phase 0 bead first.\n' '$@' >&2
 	@exit 2

@@ -23,7 +23,7 @@
     (is (= [] (get-in ((:snapshot (:capabilities session))) [:entries])))))
 
 (deftest unknown-provider-is-safe
-  (is (thrown-with-msg? clojure.lang.ExceptionInfo #"unsupported provider"
-                        (bootstrap/compose {:provider :other
-                                            :home "/tmp"}
-                                           {:executor fake-executor :env {}}))))
+  (is (= :unsupported-provider
+         (get-in (bootstrap/compose {:provider :other :home "/tmp"}
+                                    {:executor fake-executor :env {}})
+                 [:error :cause]))))
