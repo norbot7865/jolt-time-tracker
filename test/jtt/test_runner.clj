@@ -4,7 +4,8 @@
             jtt.frontend.cli.compatibility-test
             jtt.phase0.primitives-test
             jtt.phase0.tui-test
-            jtt.port.contracts-test))
+            jtt.port.contracts-test
+            jtt.domain.core-test))
 
 (defn -main [& _]
   (let [{:keys [fail error] :as summary}
@@ -12,7 +13,8 @@
                         'jtt.frontend.cli.compatibility-test
                         'jtt.phase0.primitives-test
                         'jtt.phase0.tui-test
-                        'jtt.port.contracts-test)]
+                        'jtt.port.contracts-test
+                        'jtt.domain.core-test)]
     (when (pos? (+ fail error))
       (throw (ex-info "Jolt tests failed" summary)))
     (println "jtt tests passed")))
