@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+set -euo pipefail
+cd "$(dirname "$0")/.."
+NIX=(nix --extra-experimental-features 'nix-command flakes')
+"${NIX[@]}" flake check
+"${NIX[@]}" develop -c make verify-bootstrap
+"${NIX[@]}" develop -c make test
+"${NIX[@]}" develop -c clj-kondo --lint src test
+"${NIX[@]}" develop -c make nrepl-smoke
+"${NIX[@]}" develop -c make run-smoke
+printf '%s\n' 'clean-room verification passed'
