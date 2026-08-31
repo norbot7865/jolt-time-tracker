@@ -1,0 +1,8 @@
+{:fixture-version 1
+ :synthetic true
+ :continue-partial-failure
+ {:stopped {:id "entry-old"}
+  :started nil
+  :error {:type :provider/unavailable :operation :start
+          :message "synthetic provider failure"}}
+ :wire-limits {:max-string-chars 4096 :max-events 128}}
