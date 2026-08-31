@@ -14,7 +14,7 @@
         executor (fn [operation request]
                    (swap! calls conj [operation request])
                    {:status 200 :body [{:id 3 :name "Project" :customer 7}]})
-        adapter (#'kimai/_make-adapter {:server-url "https://synthetic.invalid"
+        adapter ((var-get (ns-resolve 'jtt.adapter.kimai.core '_make-adapter)) {:server-url "https://synthetic.invalid"
                                         :api-key "synthetic-token"}
                                        executor)]
     (is (= [{:id "3" :name "Project" :client-id "7" :client-name nil :billable nil}]

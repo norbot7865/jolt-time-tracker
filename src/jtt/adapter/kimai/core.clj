@@ -65,7 +65,7 @@
     :workspaces [{:id "default" :name "Kimai"}]
     body))
 
-(defn- _make-adapter [config executor]
+(defn _make-adapter [config executor]
   (let [server (:server-url config)
         token (:api-key config)
         call (fn [operation params]
