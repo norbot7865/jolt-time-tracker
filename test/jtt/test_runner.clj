@@ -9,7 +9,8 @@
             jtt.application.core-test
             jtt.frontend.shared.coordinator-test
             jtt.android.reducer-test
-            jtt.adapter.config.core-test))
+            jtt.adapter.config.core-test
+            jtt.adapter.clockify.core-test))
 
 (defn -main [& _]
   (let [{:keys [fail error] :as summary}
@@ -22,7 +23,8 @@
                         'jtt.application.core-test
                         'jtt.frontend.shared.coordinator-test
                         'jtt.android.reducer-test
-                        'jtt.adapter.config.core-test)]
+                        'jtt.adapter.config.core-test
+                        'jtt.adapter.clockify.core-test)]
     (when (pos? (+ fail error))
       (throw (ex-info "Jolt tests failed" summary)))
     (println "jtt tests passed")))
