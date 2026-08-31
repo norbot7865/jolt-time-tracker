@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+# Run the pinned-compatible Jolt executable selected by the environment.
+set -euo pipefail
+
+if [[ -n "${JOLT_BIN:-}" ]]; then
+  [[ -x "$JOLT_BIN" ]] || {
+    printf 'JOLT_BIN is not executable: %s\n' "$JOLT_BIN" >&2
+    exit 127
+  }
+  exec "$JOLT_BIN" "$@"
+fi
+
+if command -v jolt >/dev/null 2>&1; then
+  exec jolt "$@"
+fi
+
+printf '%s\n' 'Jolt is required. Install the pinned compatible release or set JOLT_BIN=/path/to/jolt.' >&2
+exit 127

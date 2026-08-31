@@ -1,0 +1,53 @@
+#!/usr/bin/env bash
+# Start a disposable local nREPL and prove it evaluates a loaded project namespace.
+set -euo pipefail
+
+port="${JTT_NREPL_PORT:-7891}"
+log=$(mktemp)
+pid=''
+
+cleanup() {
+  [[ -n "$pid" ]] && kill "$pid" 2>/dev/null || true
+  [[ -n "$pid" ]] && wait "$pid" 2>/dev/null || true
+  rm -f .nrepl-port "$log"
+}
+trap cleanup EXIT
+
+./scripts/jolt nrepl-server "$port" >"$log" 2>&1 &
+pid=$!
+
+python3 - "$port" <<'PY'
+import socket
+import sys
+import time
+
+port = int(sys.argv[1])
+for _ in range(120):
+    try:
+        with socket.create_connection(("127.0.0.1", port), timeout=0.25):
+            break
+    except OSError:
+        time.sleep(0.25)
+else:
+    raise SystemExit("Jolt nREPL did not accept a loopback connection")
+
+def bencode(value):
+    if isinstance(value, bytes):
+        return str(len(value)).encode() + b":" + value
+    if isinstance(value, str):
+        return bencode(value.encode())
+    if isinstance(value, dict):
+        return b"d" + b"".join(bencode(key) + bencode(item)
+                                for key, item in sorted(value.items())) + b"e"
+    raise TypeError(type(value))
+
+code = "(require 'jtt.bootstrap.smoke) (jtt.bootstrap.smoke/deterministic-output)"
+request = bencode({"id": "jtt-smoke", "op": "eval", "code": code})
+with socket.create_connection(("127.0.0.1", port), timeout=5) as sock:
+    sock.sendall(request)
+    response = sock.recv(4096)
+
+if b"jtt-toolchain:42" not in response or b"done" not in response:
+    raise SystemExit("unexpected nREPL response: " + response.decode("utf-8", "replace"))
+print("nREPL smoke passed: jtt-toolchain:42")
+PY

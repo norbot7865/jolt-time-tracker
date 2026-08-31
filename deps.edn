@@ -1,2 +1,7 @@
-;; Bootstrap classpath only. The Phase 0 toolchain bead pins Jolt and all dependencies.
-{:paths ["src" "test" "test-resources"]}
+;; Toolchain evidence: Jolt v0.7.28-45-g447b874d, source revision 447b874d06066d15fee187200fabaf410f4ff5b6.
+;; Jolt ignores :jtt/toolchain; it records the project gate without introducing a runtime dependency.
+{:paths ["src"]
+ :aliases {:test {:extra-paths ["test" "test-resources"]
+                  :main-opts ["-m" "jtt.test-runner"]}}
+ :jtt/toolchain {:minimum-version "0.7.28"
+                 :source-revision "447b874d06066d15fee187200fabaf410f4ff5b6"}}

@@ -2,9 +2,11 @@
 
 ## Status
 
-This directory is a documented scaffold. No source namespaces are implemented
-yet. The layout protects the intended dependency direction before Phase 1/2 code
-arrives.
+This directory is a documented scaffold with one Phase 0 portable toolchain
+smoke namespace in `jtt.bootstrap.smoke`. It proves only source loading, testing,
+nREPL evaluation, and standalone compilation; no Phase 1/2 domain or application
+contract is implemented yet. The layout protects the intended dependency
+direction before that code arrives.
 
 ```d2
 direction: down

@@ -6,10 +6,12 @@ hosts.
 
 ## Status
 
-**Bootstrap only.** No Jolt runtime, providers, or user-facing commands are
-implemented yet. The executable acceptance criteria and phase gates live in
-[PLAN.md](PLAN.md); work state lives in the parent repository's Beads tracker.
-Do not treat planned architecture as observed behavior.
+**Phase 0 toolchain proven.** The repository contains a pinned Jolt smoke
+namespace, portable test, live nREPL smoke, and deterministic standalone binary
+proof. Providers and user-facing commands remain unimplemented. The executable
+acceptance criteria and phase gates live in [PLAN.md](PLAN.md); work state lives
+in the parent repository's Beads tracker. Do not treat planned architecture as
+observed behavior.
 
 ## Intended hosts
 
@@ -24,18 +26,20 @@ contracts.
 
 ## Getting started
 
-The initial commands are intentionally safe and fail fast without a Jolt
-installation:
+Use a compatible Jolt executable from `PATH`, or provide one explicitly:
 
 ```sh
-make help
-make verify-bootstrap
+export JOLT_BIN=/absolute/path/to/jolt
+make check-toolchain
+make test
+make nrepl-smoke
+make run-smoke
 ```
 
-Toolchain, REPL, test, binary, and frontend commands are introduced only after
-the feasibility gates have pinned and proven them. See
-[docs/DEVELOPMENT.md](docs/DEVELOPMENT.md) for the current workflow and
-[docs/TESTING.md](docs/TESTING.md) for evidence rules.
+`make` runs Jolt with `JOLT_NO_USER_DEPS=1`, so user-level dependency files do
+not affect this proof. CLI, TUI, GTK, and Android commands remain gated by their
+dedicated Phase 0 beads. See [docs/DEVELOPMENT.md](docs/DEVELOPMENT.md) for the
+current workflow and [docs/TESTING.md](docs/TESTING.md) for evidence rules.
 
 ## Documentation
 
