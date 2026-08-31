@@ -1,6 +1,9 @@
 ;; Toolchain evidence: Jolt v0.7.28-45-g447b874d, source revision 447b874d06066d15fee187200fabaf410f4ff5b6.
 ;; Jolt ignores :jtt/toolchain; it records the project gate without introducing a runtime dependency.
 {:paths ["src"]
+ :deps {babashka/cli {:git/url "https://github.com/babashka/cli.git"
+                      :git/tag "v0.9.68"
+                      :git/sha "33b1de1dfd186a9a45cfc1c4be41fe786a93dbc7"}}
  :aliases {:test {:extra-paths ["test" "test-resources"]
                   :main-opts ["-m" "jtt.test-runner"]}}
  :jtt/toolchain {:minimum-version "0.7.28"

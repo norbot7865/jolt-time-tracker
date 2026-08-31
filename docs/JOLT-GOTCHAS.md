@@ -16,6 +16,18 @@ use `nix develop` rather than rely on mutable host packages. The initial raw
 source build exceeded a five-minute harness limit during Chez compilation; it
 is a performance observation, not a failed compilation claim.
 
+## Observed — babashka.cli v0.9.68 compatibility
+
+The pinned upstream source `33b1de1dfd186a9a45cfc1c4be41fe786a93dbc7`
+(tag `v0.9.68`) loads and executes on pinned Jolt. The focused corpus proves
+aliases, booleans, scalar/collection/custom coercion, positional arguments,
+dispatch, restriction/validation errors, and `format-opts`. `format-opts` is a
+pure table formatter in this revision: it does not query terminal width, so it
+is safe without a terminal but terminal-width policy remains a product-CLI
+concern. Dispatch returns `:args nil` when no residual arguments exist; tests
+record that observed shape rather than normalizing it. No alternative parser or
+JVM fallback is used.
+
 ## Baseline constraints requiring experiments
 
 - Jolt is a Clojure implementation on Scheme, not a JVM runtime.
