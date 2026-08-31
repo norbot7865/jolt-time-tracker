@@ -11,7 +11,8 @@
             jtt.android.reducer-test
             jtt.adapter.config.core-test
             jtt.adapter.clockify.core-test
-            jtt.adapter.kimai.core-test))
+            jtt.adapter.kimai.core-test
+            jtt.adapter.provider.registry-test))
 
 (defn -main [& _]
   (let [{:keys [fail error] :as summary}
@@ -26,7 +27,8 @@
                         'jtt.android.reducer-test
                         'jtt.adapter.config.core-test
                         'jtt.adapter.clockify.core-test
-                        'jtt.adapter.kimai.core-test)]
+                        'jtt.adapter.kimai.core-test
+                        'jtt.adapter.provider.registry-test)]
     (when (pos? (+ fail error))
       (throw (ex-info "Jolt tests failed" summary)))
     (println "jtt tests passed")))
