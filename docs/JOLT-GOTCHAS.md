@@ -28,6 +28,24 @@ concern. Dispatch returns `:args nil` when no residual arguments exist; tests
 record that observed shape rather than normalizing it. No alternative parser or
 JVM fallback is used.
 
+## Observed — HTTP, JSON, time, and config primitives
+
+On Fedora Linux with Jolt `v0.7.28-45-g447b874d`, `jolt-lang/http-client`
+revision `04825632ed96a77a1c6ba1921c0a31280a3daade` loads after the flake's
+OpenSSL/zlib library path is active. `org.clojure/data.json` `2.5.0` loads and
+maps a synthetic JSON response. The focused local-only fixture uses
+`127.0.0.1:18080`; the client test passes connect/read bounds of 1000 ms and
+never logs a token or response secret. The HTTP library's total-response bound
+is exposed by `jolt.http.platform/set-max-response-ms!`; this remains an
+adapter policy to apply when the provider adapter is implemented.
+
+The time fixture crosses midnight at a fixed `-05:00` offset using ASCII-only
+inputs and observed `2024-01-01` then `2024-01-02`. A synthetic config is written
+to a same-directory temporary path, replaced with `ATOMIC_MOVE` and
+`REPLACE_EXISTING`, and observed as `rw-------` on Fedora. This is an observed
+Linux proof; non-POSIX hosts need a separate permission strategy. Temporary
+paths and synthetic secrets are not retained.
+
 ## Baseline constraints requiring experiments
 
 - Jolt is a Clojure implementation on Scheme, not a JVM runtime.

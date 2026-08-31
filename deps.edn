@@ -3,7 +3,12 @@
 {:paths ["src"]
  :deps {babashka/cli {:git/url "https://github.com/babashka/cli.git"
                       :git/tag "v0.9.68"
-                      :git/sha "33b1de1dfd186a9a45cfc1c4be41fe786a93dbc7"}}
+                      :git/sha "33b1de1dfd186a9a45cfc1c4be41fe786a93dbc7"}
+        jolt-lang/http-client {:git/url "https://github.com/jolt-lang/http-client.git"
+                               :git/sha "04825632ed96a77a1c6ba1921c0a31280a3daade"}
+        io.github.jolt-lang/time {:git/url "https://github.com/jolt-lang/time.git"
+                                  :git/sha "790b040a80dcca6cf853475e2a8feb802fb1b14b"}
+        org.clojure/data.json {:mvn/version "2.5.0"}}
  :aliases {:test {:extra-paths ["test" "test-resources"]
                   :main-opts ["-m" "jtt.test-runner"]}}
  :jtt/toolchain {:minimum-version "0.7.28"

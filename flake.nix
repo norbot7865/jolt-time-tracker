@@ -28,6 +28,7 @@
               pkgs.git
               pkgs.ncurses
               pkgs.pkg-config
+              pkgs.python3
               pkgs.unzip
               pkgs.xxd
               pkgs.zlib
@@ -45,6 +46,7 @@
               export JOLT_VERSION=v0.7.28-45-g447b874d
               export JOLT_NO_USER_DEPS=1
               export JOLT_OPENSSL_LIBDIR=${pkgs.lib.makeLibraryPath [ pkgs.openssl ]}
+              export LD_LIBRARY_PATH="${pkgs.lib.makeLibraryPath [ pkgs.openssl pkgs.zlib ]}"''${LD_LIBRARY_PATH:+":$LD_LIBRARY_PATH"}
               export SSL_CERT_FILE=${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt
               export GIT_SSL_CAINFO="$SSL_CERT_FILE"
             '';

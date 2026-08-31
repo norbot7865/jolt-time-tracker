@@ -29,7 +29,10 @@ check-toolchain:
 	@$(JOLT_ENV) $(JOLT) --version
 
 test:
-	@$(JOLT_ENV) $(JOLT) -M:test
+	@set -e; \
+	  python3 scripts/http-fixture.py & fixture=$$!; \
+	  trap 'kill $$fixture 2>/dev/null || true' EXIT INT TERM; \
+	  $(JOLT_ENV) $(JOLT) -M:test
 
 repl:
 	@$(JOLT_ENV) $(JOLT) repl
