@@ -16,7 +16,8 @@
             jtt.frontend.cli.core-test
             jtt.frontend.tui.core-test
             jtt.frontend.gtk.core-test
-            jtt.frontend.parity-test))
+            jtt.frontend.parity-test
+            jtt.android.stress-test))
 
 (defn -main [& _]
   (let [{:keys [fail error] :as summary}
@@ -36,7 +37,8 @@
                         'jtt.frontend.cli.core-test
                         'jtt.frontend.tui.core-test
                         'jtt.frontend.gtk.core-test
-                        'jtt.frontend.parity-test)]
+                        'jtt.frontend.parity-test
+                        'jtt.android.stress-test)]
     (when (pos? (+ fail error))
       (throw (ex-info "Jolt tests failed" summary)))
     (println "jtt tests passed")))
