@@ -11,6 +11,7 @@
             jtt.android.reducer-test
             jtt.adapter.config.core-test
             jtt.adapter.clockify.core-test
+            jtt.adapter.http.core-test
             jtt.adapter.kimai.core-test
             jtt.adapter.provider.registry-test
             jtt.frontend.cli.core-test
@@ -33,6 +34,7 @@
                         'jtt.android.reducer-test
                         'jtt.adapter.config.core-test
                         'jtt.adapter.clockify.core-test
+                        'jtt.adapter.http.core-test
                         'jtt.adapter.kimai.core-test
                         'jtt.adapter.provider.registry-test
                         'jtt.frontend.cli.core-test
