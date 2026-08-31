@@ -14,7 +14,8 @@
             jtt.adapter.kimai.core-test
             jtt.adapter.provider.registry-test
             jtt.frontend.cli.core-test
-            jtt.frontend.tui.core-test))
+            jtt.frontend.tui.core-test
+            jtt.frontend.gtk.core-test))
 
 (defn -main [& _]
   (let [{:keys [fail error] :as summary}
@@ -32,7 +33,8 @@
                         'jtt.adapter.kimai.core-test
                         'jtt.adapter.provider.registry-test
                         'jtt.frontend.cli.core-test
-                        'jtt.frontend.tui.core-test)]
+                        'jtt.frontend.tui.core-test
+                        'jtt.frontend.gtk.core-test)]
     (when (pos? (+ fail error))
       (throw (ex-info "Jolt tests failed" summary)))
     (println "jtt tests passed")))
