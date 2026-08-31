@@ -24,12 +24,32 @@ observed behavior.
 
 - `jtt` — scriptable CLI using `babashka.cli`;
 - `jtt-tui` — Glimmer ncurses terminal UI;
-- `jtt-gtk` — Glimmer GTK4 desktop UI;
+- `jtt-gtk` — Glimmer GTK4 desktop UI (~)
 - `jtt-android` — bounded Compose/Kotlin/JNI host sharing portable contracts.
+
 
 The Go application in [`../gtt/`](../gtt/) is the behavior oracle. Clockify is
 the default provider; Kimai 2.x support follows the same shared application
 contracts.
+
+### Resource usage comparison (`smem -p -k -t | grep jtt-`):
+```
+PID User     Command                         Swap      USS      PSS      RSS
+862723 user     ./target/jtt-tui                   0   149.2M   150.0M   167.3M
+860983 user     ./target/jtt-gtk                   0   165.7M   170.1M   215.6M
+```
+
+```
+Component          Memory Cost
+─────────────────────────────
+Chez/Jolt Runtime    ~149 MB  (baseline floor)
+NCurses TUI          ~  1 MB  (negligible)
+GTK4 GUI             ~ 16 MB  (private)
+GTK4 libs (shared)   ~ 32 MB  (RSS overhead)
+```
+
+- ~150 MB of your memory footprint is Chez Scheme / Jolt runtime which is the floor for both applications regardless of UI toolkit.
+- The private memory overhead of GTK4 is only **~16 MB** (~10%).
 
 ## Getting started
 
